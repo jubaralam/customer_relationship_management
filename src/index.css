@@ -1,1 +1,80 @@
 @import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f4f5f7;
+  color: #172b4d;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Monteserrat", sans-serif;
+}
+
+button,
+.btn {
+  font-family: "roboto", sans-serif;
+}
+
+/* Scrollbar container */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 8px; /* Height of the scrollbar (for horizontal scrolling) */
+}
+
+/* Scrollbar track (background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light gray */
+  border-radius: 10px;
+  visibility: hidden;
+}
+
+/* Scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: #bdbdbd; /* Dark gray */
+  border-radius: 10px;
+  visibility: hidden;
+}
+
+/* Scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #767676; /* Darker gray */
+}
+/* primary color for headers navigation bars and primary buttones (save, submit) */
+.primary {
+  color: #0052cc;
+}
+.primary-hover:hover {
+  color: #0052cc;
+}
+/* secondary color for secodary buttons, hover effects or side menus */
+.secondary {
+  color: #2684ff;
+}
+.secondary-hover:hover {
+  color: #0052cc;
+}
+
+/* accent color for ntifications , warnings, or call-to-action highlights  */
+.accent {
+  color: #ffc400;
+}
+
+/* background for main page or container background color */
+.bg {
+  background-color: #f4f5f7;
+}
+
+/* its for font but ensure it contrasts well with the background fro readablity */
+.font {
+  color: #172b4d;
+}
+
+
+
