@@ -3,6 +3,7 @@ import React, { useState, useContext } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { UserAuthDetailsContext } from "../contexts//UserAuthDetails";
+import { administrationRoles } from "../data";
 const UserLogin = () => {
   const { login, isLoggedIn } = useContext(UserAuthDetailsContext);
 
@@ -14,6 +15,7 @@ const UserLogin = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [redirectToAdmin, setRedirectToAdmin] = useState(false);
+  const [redirectToDashboard, setRedirectToDashboard] = useState(false);
 
   const loginUser = async (data) => {
     try {
@@ -27,7 +29,11 @@ const UserLogin = () => {
       console.log("user", user);
       console.log("token", token);
       setLoading(false);
-      setRedirectToAdmin(true);
+      if (administrationRoles.includes(user.role)) {
+        setRedirectToAdmin(true);
+      } else {
+        setRedirectToDashboard(true);
+      }
     } catch (error) {
       setLoading(false);
 
@@ -61,6 +67,10 @@ const UserLogin = () => {
   if (redirectToAdmin) {
     console.log("redirect if", redirectToAdmin);
     return <Navigate to="/administration" />;
+  }
+  if (redirectToDashboard) {
+    console.log("redirect if", redirectToAdmin);
+    return <Navigate to="/dashboard" />;
   }
 
   return (
