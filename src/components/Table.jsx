@@ -45,7 +45,6 @@ const Table = ({ data, loading, error }) => {
           </tbody>
         </table>
       </section>
-      <p>next</p>
     </div>
   );
 };
