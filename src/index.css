@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
-
+* {
+  margin: 0;
+  /* padding: 0; */
+  /* box-sizing: border-box; */
+}
 body {
   font-family: "Inter", sans-serif;
   background-color: #f4f5f7;
@@ -76,5 +80,8 @@ button,
   color: #172b4d;
 }
 
-
-
+.bg-img {
+  background: url("https://i.pinimg.com/736x/05/f4/23/05f4239f16bc8aa94a31feabec322f82.jpg")
+    center / cover;
+  border-radius: 10px;
+}

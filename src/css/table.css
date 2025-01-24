@@ -1,0 +1,111 @@
+* {
+  box-sizing: border-box;
+}
+
+/* for the profile image in-case it requires  */
+td img {
+  width: 36px;
+  height: 36;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.bg-img {
+  background: url("https://i.pinimg.com/736x/05/f4/23/05f4239f16bc8aa94a31feabec322f82.jpg")
+    center / cover;
+}
+
+.table {
+  width: 100%;
+  height: calc(90vh - 200px);
+  background-color: #fff5;
+  backdrop-filter: blur(7px);
+  box-shadow: 0 0.4rem 0.8rem #0005;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  text-align: center;
+  min-height: 100%;
+}
+
+.table_header {
+  width: 100%;
+
+  height: 10%;
+  background-color: #fff4;
+  padding: 0.8rem 1rem;
+}
+
+.table_body {
+  width: 100%;
+  max-width: 95%;
+  max-width: calc(89% - 1.6rem);
+  background-color: #fffb;
+  margin: 0.8rem auto;
+
+  /* overflow: auto; */
+
+  border-radius: 0.6rem;
+  overflow: auto; /* Keeps scrollbars when needed */
+  max-height: calc(100vh - 200px);
+}
+
+
+
+.table_body::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+.table_body::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background-color: #0004;
+  visibility: hidden;
+}
+.table_body:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+
+.table,
+th,
+td {
+  padding: 1rem;
+  border-collapse: collapse;
+  text-align: left;
+  text-wrap: nowrap;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: #d5d1defe;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #0000000b;
+}
+tbody tr:hover {
+  background-color: #fff6;
+}
+
+@media (max-width: 1000) {
+  td:not(:first-of-type) {
+    min-width: 12.1rem;
+  }
+}
+
+
+.loading-spinner {
+    text-align: center;
+    height: 100px;
+  }
+
+  .spinner {
+    /* width: 50px;
+    height: 50px; */
+    /* border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%; */
+    /* animation: spin 1s linear infinite; */
+    margin: auto;
+  }

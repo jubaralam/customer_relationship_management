@@ -7,8 +7,10 @@ import CustomerDetails from "../pages/CustomerDetails";
 import CustomerList from "../pages/CustomerList";
 import CustomerRegistration from "../pages/CustomerRegistration";
 import UserUpdate from "../pages/UserUpdate";
-const RoutesProtectorForDashboardUser = ({ isLoggedIn }) => {
-  if (!isLoggedIn) {
+const RoutesProtectorForDashboardUser = () => {
+  const token = localStorage.getItem("token");
+  console.log("token from protected route user", token);
+  if (!token) {
     return <Navigate to="/login" />;
   }
 

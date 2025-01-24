@@ -2,13 +2,9 @@
 import React, { useState, useContext } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
-import { UserAuthDetailsContext } from "../contexts//UserAuthDetails";
+
 import { administrationRoles } from "../data";
 const UserLogin = () => {
-  const { login, isLoggedIn } = useContext(UserAuthDetailsContext);
-
-  console.log(isLoggedIn);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -25,15 +21,17 @@ const UserLogin = () => {
       );
 
       const { user, token } = res.data;
-      login(user, token);
+
       console.log("user", user);
-      console.log("token", token);
+      console.log("token", user);
       setLoading(false);
       if (administrationRoles.includes(user.role)) {
         setRedirectToAdmin(true);
       } else {
         setRedirectToDashboard(true);
       }
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", token);
     } catch (error) {
       setLoading(false);
 
@@ -47,7 +45,7 @@ const UserLogin = () => {
         setError("Network error. Please try again.");
       } else {
         // Something happened in setting up the request
-        setError("An unexpected error occurred.");
+        setError("An unexpected error occurred .");
       }
     }
   };
