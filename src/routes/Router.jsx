@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Routes, Route } from "react-router-dom";
-import Home from "../pages/Home";
+import Home from "../public_pages/Home";
 import AdministrationDashboard from "../pages/AdministrationDashboard";
 import CustomerDelete from "../pages/CustomerDelete";
 import CustomerDetails from "../pages/CustomerDetails";
@@ -14,12 +14,15 @@ import UserUpdate from "../pages/UserUpdate";
 import ProtectedRoutes from "./ProtectedRoutes";
 import { useState } from "react";
 import RoutesProtectorForDashboardUser from "./RoutesProtectorForDashboardUser";
+import Customers from "../public_pages/Customers";
+import Products from "../public_pages/Products";
+import Support from "../public_pages/Support";
 import AdminProtectedRoutes from "./AdminProtectedRoutes";
+import ParentHome from "../public_pages/ParentHome";
 const Router = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<UserLogin />} />
+      <Route path="/*" element={<ParentHome />} />
       <Route
         path="/administration/*"
         element={
