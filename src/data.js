@@ -1,14 +1,15 @@
 export const asideBarList = [
-  { name: "Dashboard", url: "/" },
-  { name: "Customer", url: "/customer" },
-  { name: "Delete Customer", url: "/delete-customer" },
-  { name: "Customer Details", url: "/customer-details" },
-  { name: "Customer List", url: "/customer-list" },
-  { name: "Register", url: "/register" },
-  { name: "Update", url: "/update" },
+  { name: "Dashboard", url: "/home" },
+  { name: "Customers", url: "/customers" },
+  // { name: "Delete Customer", url: "/delete-customer" },
+  // { name: "Customer Details", url: "/customer-details" },
+  // { name: "Customer List", url: "/customer-list" },
+  // { name: "Register", url: "/register" },
+  // { name: "Update", url: "/update" },
+  { name: "Users", url: "/users" },
 ];
 export const adminAsideList = [
-  { name: "Dashboard", url: "/" },
+  { name: "Dashboard", url: "/home" },
   { name: "Customer", url: "/customer" },
   { name: "Delete Customer", url: "/delete-customer" },
   { name: "Customer Details", url: "/customer-details" },

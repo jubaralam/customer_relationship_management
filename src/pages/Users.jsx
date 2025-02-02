@@ -1,85 +1,72 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import LoadingPage from "../components/LoadingPage";
 import Table from "../components/Table";
 
-const CustomerList = () => {
+const Users = () => {
+  const { role } = useParams();
+  console.log("role from users", role);
   const token = localStorage.getItem("token");
   const [error, setError] = useState("");
-  const [customers, setCustomers] = useState([]);
+  const [usersData, setUsersData] = useState([]);
+  const [flag, setFlag] = useState(true);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState([]);
+
+  const getUsers = async () => {
+    let url = role
+      ? `https://wisdomcrm.onrender.com/api/users/?role=${role}&limit=${10}&page=${page}`
+      : `https://wisdomcrm.onrender.com/api/users/?limit=${10}&page=${page}`;
+
+    try {
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setUsersData(res.data.data);
+      setPagination(res.data.meta);
+      setFlag(false);
+    } catch (error) {
+      setFlag(false);
+      setError(error.message);
+    }
+  };
 
   const increasePageNo = () => {
     setPage((prev) => prev + 1);
   };
 
   const decresePageNo = () => {
-    // alert("working")
+    alert("working");
     if (page > 1) {
       setPage((prev) => prev - 1); // Decrease the page number only when it is greater than 1
     } else {
       console.warn("You are already on the first page.");
     }
   };
-
-  const getCustomers = async () => {
-    // Check for token before making the request
-    if (!token) {
-      setError("You are not authorized. Please log in first.");
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const res = await axios.get(
-        `https://wisdomcrm.onrender.com/api/customer/?limit=${10}&page=${page}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(res.data);
-      setCustomers(res.data.data);
-      setPagination(res.data.meta);
-    } catch (error) {
-      if (error.response) {
-        // The server responded with an error status
-        setError(error.response.data.message || "Failed to fetch customers.");
-      } else if (error.request) {
-        // No response was received
-        setError("Network error. Please check your internet connection.");
-      } else {
-        // Other errors
-        setError("An unexpected error occurred. Please try again.");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    getCustomers();
-  }, [page]);
-  
-  // if (loading) {
-  //   return (
-  //     <div className="w-10 h-10 border-t-3 border-black border-solid rounded-full animate-spin mx-auto" />
-  //   );
-  // }
-
+    getUsers();
+  }, [role, page]);
   return (
     <>
-      <div className="p-4 h-[85vh] overflow-hidden w-full">
-        <Table
-          data={customers}
-          loading={loading}
-          error={error}
-          url="register"
-          bashURL="customer"
-        />
+      <div>
+        {flag ? (
+          <LoadingPage />
+        ) : (
+          <Table
+            data={usersData}
+            loading={flag}
+            error={error}
+            title="Users"
+            url="user-register"
+            bashURL="user-details"
+          />
+        )}
       </div>
       <div className="flex justify-center items-center py-3">
         <button
@@ -116,4 +103,4 @@ const CustomerList = () => {
   );
 };
 
-export default CustomerList;
+export default Users;

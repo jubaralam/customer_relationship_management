@@ -1,28 +1,27 @@
-import { useParams,useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadingPage from "../components/LoadingPage";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { administrationRoles } from "../data";
-const CustomerDetails = () => {
-  
+const UserDetails = () => {
   const { id } = useParams();
   const [error, setError] = useState("");
   const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user"));
-const navigate = useNavigate()
+  const userDetails = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
   const [loading, setloading] = useState(true);
   const [flag, setflag] = useState(true);
-  const [customer, setCustomer] = useState({
+  const [user, setUser] = useState({
     name: "",
     company: "",
     email: "",
     phone_no: "",
     role: "",
   });
-  const getCustomer = async (id) => {
+  const getUser = async (id) => {
     try {
       const res = await axios.get(
-        `https://wisdomcrm.onrender.com/api/customer/${id}`,
+        `https://wisdomcrm.onrender.com/api/user/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -31,7 +30,7 @@ const navigate = useNavigate()
         }
       );
       console.log(res.data.data);
-      setCustomer(res.data.data);
+      setUser(res.data.data);
       setloading(false);
     } catch (error) {
       setloading(false);
@@ -39,45 +38,21 @@ const navigate = useNavigate()
     }
   };
 
-  const handleDelete = async () => {
-    const confirmUser = confirm("Do you want to delete")
-    if(!confirmUser){
-      return
-    }
-    try {
-      const res = await axios.delete(
-        `https://wisdomcrm.onrender.com/api/customer/delete/${id}`,
-
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(res.data);
-      alert(res.data.message);
-      navigate("/dashboard/customers")
-    } catch (error) {
-      setError(error.message);
-      console.log(error.message);
-    }
-  };
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     // setCustomer((prev)=> [...prev, {customer[name]:value}])
 
-    setCustomer((prev) => ({
+    setUser((prev) => ({
       ...prev,
       [name]: value, // Dynamically update the specific field
     }));
     console.log(name, value);
   };
 
-  const updateCustomer = async (payload, id) => {
+  const updateUser = async (payload, id) => {
     try {
       const res = await axios.put(
-        `https://wisdomcrm.onrender.com/api/customer/update/${id}`,
+        `https://wisdomcrm.onrender.com/api/user/update/${id}`,
 
         payload,
 
@@ -96,16 +71,41 @@ const navigate = useNavigate()
     }
   };
 
+  const handleDelete = async () => {
+    const confirmUser = confirm("Do you want to delete");
+    if (!confirmUser) {
+      return;
+    }
+    try {
+      const res = await axios.delete(
+        `https://wisdomcrm.onrender.com/api/user/delete/${id}`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(res.data);
+      alert(res.data.message);
+      navigate("/dashboard/users");
+    } catch (error) {
+      setError(error.message);
+      console.log(error.message);
+    }
+  };
+
   const hangleEdit = () => {
     if (!flag) {
-      updateCustomer(customer, id);
+      updateUser(user, id);
       console.log("clicked");
     }
     setflag(!flag);
   };
 
   useEffect(() => {
-    getCustomer(id);
+    getUser(id);
   }, [id]);
   return (
     <div>
@@ -115,13 +115,11 @@ const navigate = useNavigate()
         <div>
           <div className="flex items-center box-shadow my-5 rounded ">
             <div className="py-5 px-7 m-4 bg-[#0052cc] text-white font-bold text-2xl rounded-full ">
-              <h1>{customer.name[0].toUpperCase()}</h1>
+              <h1>{user.name[0].toUpperCase()}</h1>
             </div>
             <div>
-              <h1 className="text-2xl font-bold">
-                {customer.name.toUpperCase()}
-              </h1>
-              <h3 className="text-xl">{customer.role}</h3>
+              <h1 className="text-2xl font-bold">{user.name.toUpperCase()}</h1>
+              <h3 className="text-xl">{user.role}</h3>
             </div>
           </div>
           <div className="flex justify-between flex-wrap text-nowrap w-full box-shadow rounded my-5 py-5 px-5 box-border">
@@ -137,7 +135,7 @@ const navigate = useNavigate()
                 } w-[50%] font-bold `}
                 type="text"
                 disabled={flag}
-                value={customer.name}
+                value={user.name}
               />
             </label>
             <label className="w-[50%] my-3">
@@ -152,7 +150,7 @@ const navigate = useNavigate()
                 } w-[50%] font-bold `}
                 type="text"
                 disabled={flag}
-                value={customer.email}
+                value={user.email}
               />
             </label>
             <label className="w-[50%] my-3">
@@ -167,7 +165,7 @@ const navigate = useNavigate()
                 } w-[50%] font-bold `}
                 type="text"
                 disabled={flag}
-                value={customer.phone_no}
+                value={user.phone_no}
               />
             </label>
             <label className="w-[50%] my-3">
@@ -182,7 +180,7 @@ const navigate = useNavigate()
                 } w-[50%] font-bold `}
                 type="text"
                 disabled={flag}
-                value={customer.company}
+                value={user.company}
               />
             </label>
             <label className="w-[50%] my-3">
@@ -197,7 +195,7 @@ const navigate = useNavigate()
                 } w-[50%] font-bold `}
                 type="text"
                 disabled={flag}
-                value={customer.role}
+                value={user.role}
               />
             </label>
           </div>
@@ -206,13 +204,11 @@ const navigate = useNavigate()
       <div>
         <button
           onClick={hangleEdit}
-          className="px-5 py-3 bg-blue-700 text-white  m-3 rounded-xl"
+          className="py-2 bg-blue-700 text-white px-6 m-3 rounded-xl"
         >
           {flag ? "Edit" : "Update"}
         </button>
-
-        {(administrationRoles.includes(user.role) ||
-          user._id === customer.user_id) && (
+        {administrationRoles.includes(userDetails.role) ? (
           <button
             type="button"
             onClick={handleDelete}
@@ -220,10 +216,12 @@ const navigate = useNavigate()
           >
             Delete
           </button>
+        ) : (
+          ""
         )}
       </div>
     </div>
   );
 };
 
-export default CustomerDetails;
+export default UserDetails;

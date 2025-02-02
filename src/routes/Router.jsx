@@ -19,11 +19,15 @@ import Products from "../public_pages/Products";
 import Support from "../public_pages/Support";
 import AdminProtectedRoutes from "./AdminProtectedRoutes";
 import ParentHome from "../public_pages/ParentHome";
+import HomeDashboard from "../pages/HomeDashboard";
+import Users from "../pages/Users";
+import UserDetails from "../pages/UserDetails";
+
 const Router = () => {
   return (
     <Routes>
       <Route path="/*" element={<ParentHome />} />
-      <Route
+      {/* <Route
         path="/administration/*"
         element={
           <AdminProtectedRoutes>
@@ -36,7 +40,7 @@ const Router = () => {
         <Route path="customer-list" element={<CustomerList />} />
         <Route path="register" element={<CustomerRegistration />} />
         <Route path="update" element={<UserUpdate />} />
-      </Route>
+      </Route> */}
       ;
       <Route
         path="/dashboard/*"
@@ -46,11 +50,16 @@ const Router = () => {
           </ProtectedRoutes>
         }
       >
+        <Route path="home" element={<HomeDashboard />} />
         <Route path="delete-customer" element={<CustomerDelete />} />
-        <Route path="customer-details" element={<CustomerDetails />} />
-        <Route path="customer-list" element={<CustomerList />} />
+        <Route path="customer/:id" element={<CustomerDetails />} />
+        <Route path="customers" element={<CustomerList />} />
         <Route path="register" element={<CustomerRegistration />} />
         <Route path="update" element={<UserUpdate />} />
+        <Route path="user-details/:id" element={<UserDetails />} />
+        <Route path="user/:role" element={<Users />} />
+        <Route path="users" element={<Users />} />
+        <Route path="user-register" element={<UserRegistration />} />
       </Route>
     </Routes>
   );

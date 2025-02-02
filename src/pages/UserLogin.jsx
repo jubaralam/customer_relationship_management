@@ -10,9 +10,10 @@ const UserLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [redirectToAdmin, setRedirectToAdmin] = useState(false);
+  // const [redirectToAdmin, setRedirectToAdmin] = useState(false);
   const [redirectToDashboard, setRedirectToDashboard] = useState(false);
 
+  const [userId, setUserId] = useState(null);
   const loginUser = async (data) => {
     try {
       const res = await axios.post(
@@ -25,11 +26,9 @@ const UserLogin = () => {
       console.log("user", user);
       console.log("token", user);
       setLoading(false);
-      if (administrationRoles.includes(user.role)) {
-        setRedirectToAdmin(true);
-      } else {
-        setRedirectToDashboard(true);
-      }
+      setUserId(user._id);
+      setRedirectToDashboard(true);
+
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("token", token);
     } catch (error) {
@@ -62,13 +61,12 @@ const UserLogin = () => {
     loginUser({ email, password });
   };
 
-  if (redirectToAdmin) {
-    console.log("redirect if", redirectToAdmin);
-    return <Navigate to="/administration" />;
-  }
+  // if (redirectToAdmin) {
+  //   console.log("redirect if", redirectToAdmin);
+  //   return <Navigate to="/administration" />;
+  // }
   if (redirectToDashboard) {
-    console.log("redirect if", redirectToAdmin);
-    return <Navigate to="/dashboard" />;
+    return <Navigate to={`/dashboard/home`} />;
   }
 
   return (
